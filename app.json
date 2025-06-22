@@ -1,29 +1,37 @@
 {
   "expo": {
-    "name": "mobile_client_24320",
-    "slug": "mobile_client_24320",
+    "name": "Gear Up",
+    "slug": "gear-up-driving-school",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FC094C",
+      "resizeMode": "contain"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./assets/icon.png",
+      "bundleIdentifier": "com.cprkorzh.gearupdrivingschool"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FC094C"
       },
-      "edgeToEdgeEnabled": true
+      "icon": "./assets/icon.png",
+      "edgeToEdgeEnabled": true,
+      "package": "com.cprkorzh.gearupdrivingschool"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     }
   }
 }
