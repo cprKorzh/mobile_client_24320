@@ -3,15 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
-import * as SplashScreen from 'expo-splash-screen';
 import { useStores } from '../stores/StoreContext';
 import { useColorScheme } from '../hooks/useColorScheme';
 import { RootNavigator } from '../navigation/RootNavigator';
 import { LoginScreen } from '../screens/LoginScreen';
 import { CustomSplashScreen } from './SplashScreen';
-
-// Предотвращаем автоматическое скрытие splash screen
-SplashScreen.preventAutoHideAsync();
 
 export const AppContent: React.FC = observer(() => {
   const { authStore } = useStores();
@@ -22,28 +18,25 @@ export const AppContent: React.FC = observer(() => {
   useEffect(() => {
     async function prepare() {
       try {
-        // Здесь можно добавить инициализацию данных
-        // await authStore.initialize();
-        // await loadFonts();
-        // await loadAssets();
-        
-        // Имитация загрузки
-        await new Promise(resolve => setTimeout(resolve, 300000));
+        await authStore.initialize();
+        // Минимальное время показа splash screen
+        await new Promise(resolve => setTimeout(resolve, 1000));
       } catch (e) {
-        console.warn(e);
+        console.warn('Error during app preparation:', e);
       } finally {
-        setAppIsReady(true);
+        setIsLoading(false);
       }
     }
 
     prepare();
-  }, []);
+  }, [authStore]);
 
   const handleSplashFinish = () => {
-    setIsLoading(false);
+    setAppIsReady(true);
   };
 
-  if (!appIsReady && isLoading) {
+  // Показываем splash screen пока приложение загружается или splash screen активен
+  if (isLoading || !appIsReady) {
     return <CustomSplashScreen onFinish={handleSplashFinish} />;
   }
 
@@ -51,9 +44,7 @@ export const AppContent: React.FC = observer(() => {
     <SafeAreaProvider>
       <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-        {/* Временно показываем RootNavigator для всех пользователей */}
-        <RootNavigator />
-        {/* {authStore.isAuthenticated ? <RootNavigator /> : <LoginScreen />} */}
+        {authStore.isAuthenticated ? <RootNavigator /> : <LoginScreen />}
       </NavigationContainer>
     </SafeAreaProvider>
   );

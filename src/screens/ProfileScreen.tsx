@@ -8,6 +8,8 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {Text} from '../components/Themed';
 import {useColorScheme} from '../hooks/useColorScheme';
 import {useStores} from '../stores/StoreContext';
+import {CommonStyles, SPACING, FONT_SIZES} from '../constants/styles';
+import {QuickThemeToggle} from '../components/QuickThemeToggle';
 
 interface ProfileMenuItemProps {
     icon: string;
@@ -122,6 +124,9 @@ export const ProfileScreen: React.FC = observer(() => {
                     <StatCard value="457" label="Вопросов" color="#2196F3"/>
                 </View>
 
+                {/* Quick Theme Toggle */}
+                <QuickThemeToggle />
+
                 {/* Menu Items */}
                 <View style={styles.menuContainer}>
                     <ProfileMenuItem
@@ -165,11 +170,11 @@ export const ProfileScreen: React.FC = observer(() => {
                     />
 
                     <ProfileMenuItem
-                        icon="settings-outline"
-                        title="Настройки"
-                        subtitle="Настройки приложения"
-                        onPress={() => navigation.navigate('ProfileSettings' as never)}
-                        iconColor="#607D8B"
+                        icon="color-palette-outline"
+                        title="Тема оформления"
+                        subtitle="Светлая, темная или системная"
+                        onPress={() => navigation.navigate('ThemeSettings' as never)}
+                        iconColor="#9C27B0"
                     />
 
                     <ProfileMenuItem
@@ -223,13 +228,12 @@ const styles = StyleSheet.create({
         paddingBottom: 0, // Убираем нижний отступ
     },
     header: {
-        paddingHorizontal: 24,
-        paddingTop: 16,
-        paddingBottom: 24,
+        paddingHorizontal: SPACING.xxl,
+        paddingTop: SPACING.lg,
+        paddingBottom: SPACING.xxl,
     },
     title: {
-        fontSize: 28,
-        fontWeight: 'bold',
+        ...CommonStyles.headerTitleLarge,
     },
     userSection: {
         alignItems: 'center',

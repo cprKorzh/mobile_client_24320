@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Text} from '../components/Themed';
 import {useColorScheme} from '../hooks/useColorScheme';
 import {useStores} from '../stores/StoreContext';
+import {CommonStyles, SPACING, FONT_SIZES} from '../constants/styles';
 
 interface ProgressCardProps {
     percentage: number;
@@ -86,6 +87,7 @@ export const HomeScreen: React.FC = observer(() => {
     const textColor = colorScheme === 'dark' ? '#FFFFFF' : '#000000';
     const subtitleColor = colorScheme === 'dark' ? '#AAAAAA' : '#666666';
     const scheduleHeaderColor = colorScheme === 'dark' ? '#FC094C' : '#FC094C';
+    const scheduleLessTypeCommon = colorScheme === 'dark' ? '#FC094C' : '#FC094C';
 
     const handleLogout = () => {
         authStore.logout();
@@ -301,12 +303,9 @@ const styles = StyleSheet.create({
         paddingBottom: 0, // Убираем отступ от таб-бара
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        paddingTop: 8,
-        paddingBottom: 8,
+        ...CommonStyles.mainScreenHeader,
+        paddingTop: SPACING.lg,
+        paddingBottom: SPACING.lg,
     },
     greeting: {
         fontSize: 22,

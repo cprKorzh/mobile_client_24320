@@ -10,11 +10,39 @@ export class AuthStore {
 
     constructor() {
         makeAutoObservable(this);
-        this.checkAuthStatus();
+    }
+
+    async initialize() {
+        await this.checkAuthStatus();
     }
 
     private async checkAuthStatus() {
-        this.isAuthenticated = apiService.isAuthenticated();
+        try {
+            this.isAuthenticated = apiService.isAuthenticated();
+            
+            // Если есть токен, попробуем получить информацию о пользователе
+            if (this.isAuthenticated) {
+                try {
+                    const userInfo = await apiService.getCurrentUser();
+                    runInAction(() => {
+                        this.user = userInfo;
+                    });
+                } catch (error) {
+                    // Если токен недействителен, очищаем аутентификацию
+                    runInAction(() => {
+                        this.isAuthenticated = false;
+                        this.user = null;
+                    });
+                    apiService.logout(); // Очищаем токен
+                }
+            }
+        } catch (error) {
+            console.error('Auth check error:', error);
+            runInAction(() => {
+                this.isAuthenticated = false;
+                this.user = null;
+            });
+        }
     }
 
     async login(identifier: string, password: string): Promise<boolean> {

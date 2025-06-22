@@ -5,6 +5,7 @@ import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import {Text} from '../../components/Themed';
 import {useColorScheme} from '../../hooks/useColorScheme';
+import Header from '../../components/Header';
 
 export const DrivingScreen: React.FC = () => {
     const navigation = useNavigation();
@@ -15,16 +16,7 @@ export const DrivingScreen: React.FC = () => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: bgColor}}>
-            <View style={styles.header}>
-                <TouchableOpacity
-                    style={styles.backButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Ionicons name="arrow-back" size={24} color={textColor}/>
-                </TouchableOpacity>
-                <Text style={[styles.title, {color: textColor}]}>Вождение</Text>
-                <View style={styles.placeholder}/>
-            </View>
+            <Header title="Вождение" />
 
             <ScrollView style={[styles.container, {backgroundColor: bgColor}]}>
                 <View style={[styles.card, {backgroundColor: cardBgColor}]}>
@@ -52,23 +44,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-    },
-    backButton: {
-        padding: 8,
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    placeholder: {
-        width: 40,
     },
     card: {
         padding: 24,

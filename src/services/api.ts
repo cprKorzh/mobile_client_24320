@@ -106,6 +106,10 @@ class ApiService {
         await this.removeToken();
     }
 
+    async getCurrentUser(): Promise<any> {
+        return this.request('/users/me?populate=role');
+    }
+
     // Generic CRUD methods
     async get<T>(endpoint: string): Promise<T> {
         return this.request<T>(endpoint);

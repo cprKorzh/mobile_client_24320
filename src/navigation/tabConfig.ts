@@ -26,13 +26,13 @@ export const tabScreens: TabScreenConfig[] = [
         iconFocused: 'calendar',
         iconOutline: 'calendar-outline',
     },
-    {
-        name: 'Explore',
-        component: ExploreScreen,
-        title: 'Обучение',
-        iconFocused: 'book',
-        iconOutline: 'book-outline',
-    },
+    // {
+    //     name: 'Explore',
+    //     component: ExploreScreen,
+    //     title: 'Обучение',
+    //     iconFocused: 'book',
+    //     iconOutline: 'book-outline',
+    // },
     {
         name: 'Profile',
         component: ProfileScreen,

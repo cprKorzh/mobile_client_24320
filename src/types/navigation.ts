@@ -1,57 +1,43 @@
+import { Test, TestResult } from '../services/testApi';
+
 export type RootStackParamList = {
+  Home: undefined;
   MainTabs: undefined;
   
-  // Занятия
-  Lessons: undefined;
-  LessonChapters: { lessonId: string; lessonTitle: string };
-  ChapterVideos: { chapterId: string; chapterTitle: string };
-  VideoDetail: { videoId: string; videoTitle: string };
+  // Test screens
+  TestEntry: undefined;
+  TestQuestion: { testId: number };
+  TestResults: undefined;
+  TestResult: undefined;
+  TestResultDetail: {
+    resultId?: number;
+    result?: TestResult;
+    summary?: any;
+  };
   
-  // Вождение
-  Driving: undefined;
-  DrivingLessons: undefined;
-  DrivingLesson: { lessonId: string; lessonTitle: string };
-  
-  // Тесты
+  // Other screens
   Tests: undefined;
-  TestCategories: undefined;
-  TestQuestions: { categoryId: string; categoryTitle: string };
-  TestResult: { testId: string; score: number };
+  Lessons: undefined;
+  LessonChapters: { lessonId: string };
+  ChapterVideos: { chapterId: string };
+  VideoDetail: { videoId: string };
   
-  // Экзамен
-  Exam: undefined;
-  ExamPreparation: undefined;
-  ExamSession: { examId: string };
-  ExamResult: { examId: string; score: number };
-  
-  // Вопросы
-  Questions: undefined;
-  QuestionCategories: undefined;
-  QuestionList: { categoryId: string; categoryTitle: string };
-  QuestionDetail: { questionId: string };
-  
-  // План
-  Plan: undefined;
-  PlanDetails: { planId: string };
-  
-  // Результаты
-  Results: undefined;
-  ResultDetails: { resultId: string };
-  
-  // Правила
-  Rules: undefined;
-  RuleCategories: undefined;
-  RuleDetail: { ruleId: string; ruleTitle: string };
-  
-  // Профиль
+  // Profile screens
   LanguageSettings: undefined;
   ProfileSettings: undefined;
   About: undefined;
+  
+  // Other sections
+  Driving: undefined;
+  Exam: undefined;
+  Questions: undefined;
+  Plan: undefined;
+  Results: undefined;
+  Rules: undefined;
 };
 
-export type TabParamList = {
-  Home: undefined;
-  Explore: undefined;
-  Calendar: undefined;
-  Profile: undefined;
-};
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}

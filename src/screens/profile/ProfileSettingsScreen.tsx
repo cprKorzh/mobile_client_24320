@@ -1,38 +1,12 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View, TextInput, Alert} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, View, Alert} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import {Text} from '../../components/Themed';
+import {ThemedInput} from '../../components/ThemedInput';
+import {ThemedButton} from '../../components/ThemedButton';
 import {useColorScheme} from '../../hooks/useColorScheme';
-
-interface InputFieldProps {
-    label: string;
-    value: string;
-    onChangeText: (text: string) => void;
-    placeholder?: string;
-    keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
-}
-
-function InputField({label, value, onChangeText, placeholder, keyboardType = 'default'}: InputFieldProps) {
-    const colorScheme = useColorScheme();
-    const textColor = colorScheme === 'dark' ? '#FFFFFF' : '#000000';
-    const inputBgColor = colorScheme === 'dark' ? '#2A2A2A' : '#F5F5F5';
-
-    return (
-        <View style={styles.inputContainer}>
-            <Text style={[styles.inputLabel, {color: textColor}]}>{label}</Text>
-            <TextInput
-                style={[styles.textInput, {backgroundColor: inputBgColor, color: textColor}]}
-                value={value}
-                onChangeText={onChangeText}
-                placeholder={placeholder}
-                placeholderTextColor={colorScheme === 'dark' ? '#888' : '#999'}
-                keyboardType={keyboardType}
-            />
-        </View>
-    );
-}
 
 interface GenderSelectorProps {
     selectedGender: 'male' | 'female' | null;
@@ -104,6 +78,10 @@ export const ProfileSettingsScreen: React.FC = () => {
         navigation.navigate('LanguageSettings' as never);
     };
 
+    const handleThemeSettings = () => {
+        navigation.navigate('ThemeSettings' as never);
+    };
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: bgColor}}>
             <View style={styles.header}>
@@ -114,12 +92,20 @@ export const ProfileSettingsScreen: React.FC = () => {
                     <Ionicons name="arrow-back" size={24} color={textColor}/>
                 </TouchableOpacity>
                 <Text style={[styles.title, {color: textColor}]}>Редактировать профиль</Text>
-                <TouchableOpacity
-                    style={styles.settingsButton}
-                    onPress={handleLanguageSettings}
-                >
-                    <Ionicons name="language" size={24} color={textColor}/>
-                </TouchableOpacity>
+                <View style={styles.headerButtons}>
+                    <TouchableOpacity
+                        style={styles.settingsButton}
+                        onPress={handleThemeSettings}
+                    >
+                        <Ionicons name="color-palette" size={24} color={textColor}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.settingsButton}
+                        onPress={handleLanguageSettings}
+                    >
+                        <Ionicons name="language" size={24} color={textColor}/>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <ScrollView style={[styles.container, {backgroundColor: bgColor}]}>
@@ -137,41 +123,46 @@ export const ProfileSettingsScreen: React.FC = () => {
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    <InputField
+                    <ThemedInput
                         label="Имя"
                         value={name}
                         onChangeText={setName}
                         placeholder="Введите ваше имя"
+                        icon="person-outline"
                     />
 
-                    <InputField
+                    <ThemedInput
                         label="Email"
                         value={email}
                         onChangeText={setEmail}
                         placeholder="example@gmail.com"
                         keyboardType="email-address"
+                        icon="mail-outline"
                     />
 
-                    <InputField
+                    <ThemedInput
                         label="Дата рождения"
                         value={birthDate}
                         onChangeText={setBirthDate}
                         placeholder="ДД/ММ/ГГГГ"
+                        icon="calendar-outline"
                     />
 
-                    <InputField
+                    <ThemedInput
                         label="Номер телефона"
                         value={phone}
                         onChangeText={setPhone}
                         placeholder="+82 - 10 ___  ___"
                         keyboardType="phone-pad"
+                        icon="call-outline"
                     />
 
-                    <InputField
+                    <ThemedInput
                         label="Идентификатор студента"
                         value={studentId}
                         onChangeText={setStudentId}
                         placeholder="#87654"
+                        icon="school-outline"
                     />
 
                     <GenderSelector
@@ -179,18 +170,28 @@ export const ProfileSettingsScreen: React.FC = () => {
                         onSelect={setGender}
                     />
 
-                    <InputField
+                    <ThemedInput
                         label="Адрес"
                         value={address}
                         onChangeText={setAddress}
                         placeholder="Место для адреса"
+                        icon="location-outline"
+                        multiline={true}
+                        numberOfLines={3}
                     />
                 </View>
 
                 {/* Save Button */}
-                <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-                    <Text style={styles.saveButtonText}>Сохранить</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonContainer}>
+                    <ThemedButton
+                        title="Сохранить"
+                        onPress={handleSave}
+                        icon="checkmark"
+                        iconPosition="right"
+                        fullWidth={true}
+                        size="large"
+                    />
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -219,6 +220,10 @@ const styles = StyleSheet.create({
     },
     settingsButton: {
         padding: 8,
+    },
+    headerButtons: {
+        flexDirection: 'row',
+        gap: 8,
     },
     avatarContainer: {
         alignItems: 'center',
@@ -253,22 +258,6 @@ const styles = StyleSheet.create({
     formContainer: {
         paddingHorizontal: 24,
     },
-    inputContainer: {
-        marginBottom: 24,
-    },
-    inputLabel: {
-        fontSize: 16,
-        fontWeight: '500',
-        marginBottom: 8,
-    },
-    textInput: {
-        height: 50,
-        borderRadius: 12,
-        paddingHorizontal: 16,
-        fontSize: 16,
-        borderWidth: 1,
-        borderColor: 'transparent',
-    },
     genderContainer: {
         flexDirection: 'row',
         gap: 32,
@@ -294,22 +283,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
     },
-    saveButton: {
-        backgroundColor: '#FC094C',
-        marginHorizontal: 24,
-        marginVertical: 32,
-        paddingVertical: 16,
-        borderRadius: 12,
-        alignItems: 'center',
-        shadowColor: '#FC094C',
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 4,
-    },
-    saveButtonText: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: '600',
+    buttonContainer: {
+        paddingHorizontal: 24,
+        paddingVertical: 32,
     },
 });

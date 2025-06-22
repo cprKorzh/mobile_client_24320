@@ -1,11 +1,14 @@
 import React from 'react';
 import {StoreProvider} from './src/stores/StoreContext';
+import {ThemeProvider} from './src/contexts/ThemeContext';
 import {AppContent} from './src/components/AppContent';
 
 export default function App() {
     return (
-        <StoreProvider>
-            <AppContent/>
-        </StoreProvider>
+        <ThemeProvider>
+            <StoreProvider>
+                <AppContent/>
+            </StoreProvider>
+        </ThemeProvider>
     );
 }
