@@ -258,36 +258,36 @@ export const HomeScreen: React.FC = observer(() => {
                     </View>
 
                     <View style={styles.scheduleColumn}>
-                        <Text style={styles.scheduleTime}>11</Text>
+                        <Text style={styles.scheduleTime}>12</Text>
                         <View style={styles.scheduleTimelineContainer}>
                             <View style={styles.scheduleTimeline}/>
-                            <ScheduleItem time="11:00" title="Глава 1" color="#E0CFFF"/>
+                            <ScheduleItem time="11:00" title="Глава 2" color="#E0CFFF"/>
                         </View>
                     </View>
 
                     <View style={styles.scheduleColumn}>
-                        <Text style={styles.scheduleTime}>11</Text>
+                        <Text style={styles.scheduleTime}>13</Text>
                         <View style={styles.scheduleTimelineContainer}>
                             <View style={styles.scheduleTimeline}/>
-                            <ScheduleItem time="11:00" title="Глава 1" color="#E0CFFF"/>
-                        </View>
-                    </View>
-
-
-                    <View style={styles.scheduleColumn}>
-                        <Text style={styles.scheduleTime}>11</Text>
-                        <View style={styles.scheduleTimelineContainer}>
-                            <View style={styles.scheduleTimeline}/>
-                            <ScheduleItem time="11:00" title="Глава 1" color="#E0CFFF"/>
+                            <ScheduleItem time="11:00" title="Глава 3" color="#E0CFFF"/>
                         </View>
                     </View>
 
 
                     <View style={styles.scheduleColumn}>
-                        <Text style={styles.scheduleTime}>11</Text>
+                        <Text style={styles.scheduleTime}>14</Text>
                         <View style={styles.scheduleTimelineContainer}>
                             <View style={styles.scheduleTimeline}/>
-                            <ScheduleItem time="11:00" title="Глава 1" color="#E0CFFF"/>
+                            <ScheduleItem time="11:00" title="Глава 4" color="#E0CFFF"/>
+                        </View>
+                    </View>
+
+
+                    <View style={styles.scheduleColumn}>
+                        <Text style={styles.scheduleTime}>15</Text>
+                        <View style={styles.scheduleTimelineContainer}>
+                            <View style={styles.scheduleTimeline}/>
+                            {/*<ScheduleItem time="11:00" title="Глава 5" color="#E0CFFF"/>*/}
                         </View>
                     </View>
                 </ScrollView>
@@ -415,6 +415,7 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 8,
         top: 10,
+        left: 0,
         zIndex: 1,
     },
     scheduleTitle: {
